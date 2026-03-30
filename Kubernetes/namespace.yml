@@ -2,3 +2,19 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: prodns
+
+#############################################################
+
+#kind: namepsace
+#apiVersion: v1
+#metadata:
+ # namespace: dev
+
+
+#####################################################
+
+#kind: Namespace
+#apiVersion: v1
+#metadata:
+ # name: testing
+
