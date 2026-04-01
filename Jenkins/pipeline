@@ -42,3 +42,49 @@ pipeline{
 }
 }
 }
+
+
+
+##########################################################################################################
+
+
+pipeline{
+  agent {label "ayush"}
+  stages{
+    stage("clone"){
+      steps{
+        git url :"giturl", brnach: "main"
+
+}
+
+}
+    stage("code")  
+      steps{
+        sh "docker build -t notes-app . "
+
+
+}
+
+}
+     stage("push to docker hub"){
+      steps{
+        withCredentials([usernamePassword(credentialsId: "gituerpasss",
+                                          userVariables: $USER,
+                                          passwordVariable: "$PASS")]){
+
+        sh "docker login -u $USER -p $PASS"
+        sh "docker tag ayushamansingh/notes-app:latest"
+        sh "docker push ayushamansinghnotes-app"
+
+}
+
+} 
+}
+    stage("build the Image"){
+      steps{
+        sh "docker run -d -p 8000:8000 notes-app"
+}
+
+
+}
+}
