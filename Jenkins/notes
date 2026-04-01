@@ -1,3 +1,33 @@
 Jenkins is A Tool used to automated your workflow, by the help of the pipeline.
 Jenkins also works on Master-WoRKER architecture.
 Master used to give the command to Workers adn they worked on that.
+
+
+---How to connect master to Worker node---
+
+first download jave lang and jenkins-LTS version on master && java-lang on worker.
+ 
+use two server - one as master ,one as worker
+
+~/.ssh on master
+
+ssh-keygen
+
+copy the pub key & and paste it on ~/.ssh worker server 
+
+then , go to jenkins UI and
+
+manage jenkins
+
+add worker node
+
+then, give datails,
+
+add Worker ip on  host-part
+
+add Private-ssh-key to add credentials
+
+then connect it with Jenkins.
+
+
+
