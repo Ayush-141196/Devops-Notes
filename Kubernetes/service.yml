@@ -1,0 +1,12 @@
+kind: Service
+apiVerion: apps/v1
+metadata:
+  name: django-service
+  namespace: django-app
+spec:
+  selectors:
+    matchLabels:
+      app: django
+  template:
+    matchLabels:
+      app: django
