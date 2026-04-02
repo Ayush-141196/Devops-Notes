@@ -1,0 +1,143 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ayush
+  namespace: apache
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: ayush
+  template:
+     metadata:
+       labels:
+         app: ayush
+spec:
+    container_name: notes-app
+    image: ayushamansingh/notes-app
+    
+
+#####################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx
+  namespace: nginx
+spec:
+  replicas: 4 
+  selectors:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+  spec:
+    container_name: nginx
+    image: nginx
+    container_port: 80
+
+
+#########################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: apache
+  namespace: apache-ns
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - name: apache-cont
+        image: httpd:latest
+        ports:
+        - container-port: 80
+
+
+#############################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+  spec:
+    containers:
+    - name: django-cont
+      image: python:3.11-slim
+      ports:
+      - containerPort: 80
+
+
+##############################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+   spec:
+     containers:
+       - name: node-cont
+         image: node:19-slim
+         command: ["npm", "start"]  
+         ports:
+         - containerPort: 80
+
+#############################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+        - name: node-cont
+          image: node:19-slim
+          command: ["npm", "start"]
+          ports:
+          - containerPort: 80
+
+
+
+
+
+
+
