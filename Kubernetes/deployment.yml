@@ -15,7 +15,6 @@ spec:
 spec:
     container_name: notes-app
     image: ayushamansingh/notes-app
-    
 
 #####################################################################################
 
@@ -25,7 +24,7 @@ metadata:
   name: nginx
   namespace: nginx
 spec:
-  replicas: 4 
+  replicas: 4
   selectors:
     matchLabels:
       app: nginx
@@ -107,7 +106,7 @@ spec:
      containers:
        - name: node-cont
          image: node:19-slim
-         command: ["npm", "start"]  
+         command: ["npm", "start"]
          ports:
          - containerPort: 80
 
@@ -137,7 +136,31 @@ spec:
 
 
 
+#####################################################################################################
 
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  replicas: 100
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metedata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-cont
+        image: python:3.11-slim
+        ports:
+        - containerPort: 80
+
+  
 
 
 
