@@ -29,3 +29,20 @@ kubectl get ns
 
 *to enter inside pod*
 kubectl exec -it pod-name -n prod -- bash
+
+**to set new image**
+kubectl set image deployment/name --node=node:20-slim -n node-app
+
+**to check rolling update**
+kubectl rollout status deployment/name -n node-app
+
+**to undo the rolling update**
+kubectl rollout undo deployment/name -n node-app
+
+kubectl rollout history deployment/name -n node-app
+
+kubectl rollout pause deployment/name -n node-app
+
+kubectl rollout resume deployment/name -n node-app
+
+
