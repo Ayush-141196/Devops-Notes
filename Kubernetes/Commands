@@ -32,6 +32,8 @@ kubectl config set-context --current --namespace nameofns
 *to see namespace*
 kubectl get ns
 
+**to delete all the things inside a ns**
+kubectl delete all -all -n nsname
 
 *to enter inside pod*
 kubectl exec -it pod-name -n prod -- bash

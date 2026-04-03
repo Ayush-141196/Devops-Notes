@@ -30,8 +30,35 @@ metadata:
   name: node
 spec:
   containers:
-  - name: node:19-slim
-    image: python:3.11-slim
+  - name: node-cont
+    image: node:19-slim
     ports:
     - containerPort: 80
 
+
+############################################################################
+
+kind: pod
+apiVersion: v1
+metadata:
+  name: node
+spec:
+  containers:
+  - name: node-cont
+    image: node-19-slim
+    ports:
+    - containerPort: 80
+
+###########################################################################
+
+
+kind: pod
+apiVersion: v1
+metadata:
+  name: node
+spec:
+  containers:
+  - name: node-cont
+    image: node:19-slim
+    ports:
+    - containerPort: 80
