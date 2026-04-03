@@ -23,6 +23,12 @@ kind get clusters
 *to see kubectl is listening to which cluster*
 kubectl config current-context
 
+**to use the specific cluter**
+kubectl config use-context clustername
+
+**to set default namespace**
+kubectl config set-context --current --namespace nameofns
+
 *to see namespace*
 kubectl get ns
 
@@ -44,5 +50,8 @@ kubectl rollout history deployment/name -n node-app
 kubectl rollout pause deployment/name -n node-app
 
 kubectl rollout resume deployment/name -n node-app
+
+**to kill all Process of Kubernetes**
+killall Kubectl 
 
 
