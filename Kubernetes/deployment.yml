@@ -206,7 +206,7 @@ spec:
     containers:
     - name: django-cont
       image: python:3.11-slim
-      command: ["gunicorn", "python", "0.0.0.0", "wsgi:python:application" ]
+      command: ["gunicorn", "python", "0.0.0.0:8000", "wsgi:python:application" ]
       ports:
       - containerPort: 80
 
@@ -232,9 +232,67 @@ spec:
     containers:
     - name: django-cont
       image: python:3.11-slim
-      command: ["gunicorn", "runserver", "0.0.0.0", "wsgi:python:application"]
+      command: ["gunicorn", "runserver", "0.0.0.0:8000", "wsgi:python:application"]
       ports:
       - containerPort: 80
 
 
+#################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-pod
+  namespace: django-app
+spec:
+  replicas: 55
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-cont
+        image: python:3.11-slim
+        command: ["gunicorn", "runserver", "0.0.0.0:8000", "wsgi:manage.py:application"]
+        ports:
+        - containerPort: 80
+
+############################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node-pod
+  namespace: node-app
+spec:
+  replicas: 121
+    selector:
+    matchLabels: 
+      app: node
+    template:
+      metadata:
+        labels:
+          app: node
+      spec:
+        containers:
+        - name: node-cont
+          image: node:19-slim
+          command: ["npm", "start"]
+          ports:
+          - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "264Mi"
+              cpu: "500m"
+
+
+################################################################################################
 
