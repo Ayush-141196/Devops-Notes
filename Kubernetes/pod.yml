@@ -8,3 +8,30 @@ spec:
   - name: nginx-container
     image: nginx
 
+
+########################################################################
+
+kind: pod
+apiVersion: v1
+metadata:
+  name: django
+spec:
+  containers:
+  - name: django-pod
+    image: python:3.11-slim
+    ports:
+    - containerPort: 80
+
+############################################################################
+
+kind: pod
+apiVersion: v1
+metadata:
+  name: node
+spec:
+  containers:
+  - name: node:19-slim
+    image: python:3.11-slim
+    ports:
+    - containerPort: 80
+
