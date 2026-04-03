@@ -62,3 +62,34 @@ spec:
     image: node:19-slim
     ports:
     - containerPort: 80
+
+####################################################################################
+
+
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node-pod
+spec:
+  containers:
+  - name: node-cont
+    image: node:19-slim
+    ports:
+    - containerPort: 80
+
+
+##############################################################################
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node-pod
+spec:
+  containers:
+  - name: node-cont
+    image: node:19-slim
+    ports:
+    - containerPort: 80
+
+
