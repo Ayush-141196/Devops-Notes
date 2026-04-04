@@ -232,7 +232,7 @@ spec:
     containers:
     - name: django-cont
       image: python:3.11-slim
-      command: ["gunicorn", "runserver", "0.0.0.0:8000", "wsgi:python:application"]
+      command: ["gunicorn", "runserver", "0.0.0.0:8000", "wsgi:python:application"]                                                              10
       ports:
       - containerPort: 80
 
@@ -296,3 +296,34 @@ spec:
 
 ################################################################################################
 
+kind: Deployment
+apiVersion: app/v1
+metadata:
+  name: django-pod
+  namespace: django-app
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-cont
+        image: python:3.11-slim
+        ports:
+        - containerPort: 80
+        resource:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "264Mi"                                                                                                                    13
+            cpu: "500M"
+
+
+              ######              ##############             
+            
