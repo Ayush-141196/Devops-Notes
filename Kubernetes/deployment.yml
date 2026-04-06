@@ -325,5 +325,96 @@ spec:
             cpu: "500M"
 
 
-              ######              ##############             
-            
+##########################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-pod
+  namespace: djnago-pod
+spec:
+  replicas: 7
+  selector:
+    matchLabels:
+      app: django-pod
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-cont
+        image: python:3.11-slim
+        ports:
+        - containerPort: 80
+        resource:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "264Mi"
+            cpu: "500m"
+
+######################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: node-pod
+  namespace: node-app
+spec:
+  replicas: 154
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-cont
+        image: node:19-slim
+        ports:
+        - containerPort: 80
+        resource:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: node-pod
+  namespace: node-app
+spec:
+  replicas: 21
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      container:
+      - name: node-cont
+        image: node:19-slim
+        command: ["npm", "start"]
+        resource:
+          requests:
+            memory: "250Mi"
+            cpu: "500m"
+          limits:
+            memory: "500Mi"
+            cpu: "1G"
+
+:wq
+
