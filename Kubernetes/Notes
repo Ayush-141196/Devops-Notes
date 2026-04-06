@@ -1,0 +1,25 @@
+**kubernetes**
+
+
+<< Nodes-- k8s nodes has -- 
+
+pods run on nodes
+
+Node has Rootns
+
+
+
+           Pod
+            |
+           podns
+            |
+this is Linux Networking Stack
+            |
+Ethernet, routing, iptables, conntracking.
+
+
+CNI - Computer Network Interface- cni plugin is required to implement the kubernetes network model.
+
+
+
+
