@@ -416,5 +416,63 @@ spec:
             memory: "500Mi"
             cpu: "1G"
 
-:wq
+#######################################################################################################################
+
+kind: Deployment
+apiversion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metedata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-cont
+        image: node:19-slim
+        command: ["npm", "start"]
+        resources:
+          request:
+            memory: "250Mi"
+            cpu: "500M"
+          limits:
+            memory: "500Mi"
+            cpu: "1G"
+
+######################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metedata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metedata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node:19-slim
+        namespace: node
+        command: ["npm", "start"]
+        resource:
+          request:
+            memory: "250Mi"
+            cpu: "500M"
+          limits:
+            memory: "500Mi"
+            cpu: "1G"
+
+#########################################################################################################################
 
