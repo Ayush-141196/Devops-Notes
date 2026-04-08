@@ -1,0 +1,85 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  serviceName: mysql
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql    
+      resources:
+        requests:
+          memory: "250Mi"
+          cpu: "500m"
+        limits:
+          memory: "500Mi"
+          cpu: "1000m"
+
+volumeClaimTemplates:
+- metadata:
+    name: mysql-storage
+  spec:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 1Gi
+
+##########################################################################################
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  serviceName: mysql
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "12345"
+        volumeMounts:
+        - name: mysql-Storage
+          mountPath: /var/lib/mysql
+      resources:
+        requests: 
+          memory: "250Mi"
+          cpu: "500m"
+        limits:
+          memory: "500Mi"
+          cpu: "1000m"
+
+volumeClaimTemplates:
+- metadata:
+    name: mysql-storage
+  spec:
+    accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
