@@ -262,6 +262,39 @@ spec:
 
 #################################################################################################################
 
+kind: Service
+apiVersion: v1
+metadata:
+  name: flask-pod
+  namespace: flask-app
+spec:
+  selector:
+    app: flask
+  ports:
+  - prortocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+#######################################################################################################################
+
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: flask
+  namespace: flask-app
+spec:
+  selector:
+    app: flask
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+
+################################################################
 
 
 
