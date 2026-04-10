@@ -476,3 +476,100 @@ spec:
 
 #########################################################################################################################
 
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: djnago-cont
+        image: python:3.11-slim
+        commands: ["python", "runserver", "0.0.0.0:8000", "wsgi:manage.py:application"]
+        resource:
+          requests:
+            memory: "250Mi"
+            cpu: "500M"
+          limits:
+            memory: "500Mi"
+            cpu: "1G"
+        
+
+
+#############################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: node
+  namespce: node-app
+spec: 
+  replicas: 5
+  selector:
+    matchLabels:
+      app: node
+  template: 
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-cont
+        image: node:19-alpine
+        commands: ["npm", "start"]
+        resource:
+          requests:
+            memory: "250Mi"
+            cpu: "250M"
+          limits:
+            memory: "250Mi"
+            cpu: "500M"
+
+
+
+#############################################################################################################################################            
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 77
+  selector:
+    matchlabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      container:
+      - name: node
+        namespace: node-app
+        command: ["npm", "start"]
+        resource:
+          requests:
+            memory: "250Mi"
+            cpu: "500M"
+          limits:
+            memory: "500Mi"
+            cpu: "1000M"                                                                                                             21
+
+
+##########################################################################################################################################################
+
+
+
+
+
