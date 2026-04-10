@@ -242,7 +242,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: ClusterIP
+  type: ClusterIP                                                                                                                   15
 
 ####################################################################################################################
 
@@ -294,7 +294,107 @@ spec:
   type: ClusterIP
 
 
-################################################################
+##########################################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  selector:
+    app: django
+  spec:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+####################################################################################################################
+
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django
+spec:
+  selector:
+    app: django
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    type: ClusterIP
+
+##################################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    type: ClusterIP
+
+#################################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django
+spec:
+  selector:
+    app: django
+  ports:
+  - protocol: TCP
+    ports: 80
+    targetPort: 80
+    type: CLusterIP
+
+
+########################################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django
+spec:
+  selector:
+    app: django
+  ports:
+  - protocol: TCP
+    port: 80
+    targetport: 80
+    type: ClusterIP
+
+###########################################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django
+spec:
+  selector:
+    app: django
+  spec:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    type: ClusterIP                                                                                                                   24
+
+###############################################################################################################################
+             
+
 
 
 
