@@ -56,4 +56,8 @@ kubectl rollout resume deployment/name -n node-app
 **to kill all Process of Kubernetes**
 killall Kubectl 
 
+**to create KInd cluster**
+kubectl create cluster --name deployment --config config-file-name
 
+**to delete kind cluster**
+kubectl delete cluster --name cluster-name
