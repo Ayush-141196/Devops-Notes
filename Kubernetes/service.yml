@@ -455,11 +455,40 @@ spec:
   type: ClusterIP
   selector:
       app: django
-  port:
+  ports:
   - protocol: TCP
     port: 80
-    targetPOrt: 8000
+    targetPort: 8000
+
+#####################################################################################################################
 
 
+kind: Service
+apiVersion: v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
 
+
+###################################################################################################################
+
+Kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  selector:
+    app: django
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
 
