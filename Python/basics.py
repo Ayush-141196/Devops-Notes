@@ -6,3 +6,10 @@ print(b)
 
 c= "ayushamansingh"
 print(a,b,c)
+
+
+d = "aman"
+print(d)
+
+e = 'amansingh'
+print(e)
