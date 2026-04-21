@@ -1,0 +1,13 @@
+** commands for git**
+
+
+-- To save the user & PAT permanent --
+git config --global credential.helper store
+
+git reflog
+
+git show id of commit
+
+git checkout
+
+
