@@ -122,3 +122,35 @@ volumes:
   mysql_data:
 
 
+###############################################################################################
+
+
+version : 3.8  - in the latest Version the docker-compose, you dont need to specify the version
+
+
+services:
+  app:
+    container_name: python-cont
+    image: python:3.11-slim
+    build: .
+    ports: 
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    container_name: mysql-cont
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    env:
+      - MYSQL_DATABASE=mysql_db
+      - MYSQL_USER=ayush
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+
