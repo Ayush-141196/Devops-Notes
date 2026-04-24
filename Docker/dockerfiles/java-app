@@ -16,9 +16,7 @@ FROM eclipse-turmerin:17-jdk
 
 WORKDIR /app
 
-COPY . /app
-
-RUN target/*.jar app.jar
+COPY target/*.jar app.jar
 
 EXPOSE 8080
 
@@ -32,9 +30,7 @@ FROM eclipse-turmerin:17-jdk
 
 WORKDIR /app
 
-COPY . /app
-
-RUN target/*.jar app.jar
+COPY target/*.jar app.jar
 
 EXPOSE 8080
 
@@ -46,9 +42,7 @@ FROM eclipse-turmerin:17-jdk
 
 WORKDIR /app
 
-COPY . /app
-
-RUN target/*.jar app.jar
+COPY target/*.jar app.jar
 
 EXPOSE 8080
 
@@ -61,9 +55,7 @@ FROM eclipse-turmerin:17-jdk
 
 WORKDIR /app
 
-COPY . /app
-
-RUN target/*.jar app.jar
+COPY target/*.jar app.jar
 
 EXPOSE 8080
 
@@ -75,9 +67,7 @@ FROM eclipse-turmerin:17-jdk
 
 WORKDIR /app
 
-COPY . /app
-
-RUN target/*.jar app.jar
+COPY target/*.jar app.jar
 
 EXPOSE 8080
 
@@ -85,4 +75,95 @@ ENTRYPOINT ["jave", "-jar", "app.jar"]
 
 
 #########################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["jave", "-jar", "app.jar"]
+
+######################################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
+#####################################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+#####################################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+ 
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+######################################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+###############################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY  target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "--jar", "app.jar"]
+
+############################################################################################
+
+FROM eclipse-turmerin:17-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+################################################################################################
+
+
+
+
+
+
 
