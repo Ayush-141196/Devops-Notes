@@ -1,4 +1,4 @@
-FROM eclipse-turmeric:17-jdk
+FROM eclipse-tumeric:17-jdk
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 #########################################################
 
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -26,7 +26,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -38,7 +38,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ###################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -51,7 +51,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ###############################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -63,7 +63,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ###################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -76,7 +76,7 @@ ENTRYPOINT ["jave", "-jar", "app.jar"]
 
 #########################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -88,7 +88,7 @@ ENTRYPOINT ["jave", "-jar", "app.jar"]
 
 ######################################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -101,7 +101,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 #####################################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -113,7 +113,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 #####################################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
  
@@ -125,7 +125,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ######################################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -137,7 +137,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ###############################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -149,7 +149,7 @@ ENTRYPOINT ["java", "--jar", "app.jar"]
 
 ############################################################################################
 
-FROM eclipse-turmerin:17-jdk
+FROM eclipse-tumerin:17-jdk
 
 WORKDIR /app
 
@@ -162,8 +162,15 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 ################################################################################################
 
 
+FROM eclipse-tumerin:jdk:21-slim
 
+WORKDIR /app
 
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
 
