@@ -743,5 +743,133 @@ spec:
             memory: "256Mi"
             cpu: "500m"
 
+#######################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: python
+  namespace: python-ns
+spec: 
+  replicas: 5
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers: 
+      - name: python-cont
+        image: python:3.14-slim
+        # for testing
+        command: ["python3", "-m", "http.server", "8000"]
+        #for production
+        command: ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:application"]
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+
+###########################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: node
+  namespace: node-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-cont
+        image: node:22-slim
+        command: ["npm", "index.js"]
+        ports:
+        - containerPorts: 3000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+
+
+
+###############################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: java
+  namespace: java-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: java
+  template:
+    metadata:
+      labels:
+        app: java
+    spec: 
+      containers:
+      - name: java-cont
+        image: eclipse-temurin:17-jdk
+        command: ["java", "-jar", "app.jar"]
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+
+#######################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: java
+  namespace: java-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels: 
+      app: java
+  template:
+    metadata: 
+      labels:
+        app: java
+    spec:
+      containers:
+      - name: java-cont
+        image: eclipse-temurin:17-jdk
+        ports:
+        - containerPort: 3000
+        command: ["java", "-jar", "app.jar"]
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "256m"
+          limits:
+            memory: "1Gi"
+            cpu: "512m"
+
 
 
