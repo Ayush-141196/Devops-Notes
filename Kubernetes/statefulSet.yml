@@ -313,9 +313,48 @@ spec:
         resources:
           requests:
             storage: "1Gi"
-          
+      
+###################################################################################################################
 
-        
+kind: statefulset
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql-db
+spec:
+  servicename: mysql
+  replicas: 4
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-cont
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT-PASSWORD
+          value: "123456"
+        volumePath:
+        - name: Mysql-storage
+          path: /var/lib/mysql
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "264Mi"
+            cpu: "128m"
 
- 
- 
+  VolumeClaimTemplate:
+  - metadata:
+      name: mysql-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: "1Gi"
+
