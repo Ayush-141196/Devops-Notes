@@ -492,3 +492,78 @@ spec:
     port: 80
     targetPort: 8000
 
+
+
+#####################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: node
+  namespace: node-ns
+spec:
+  type: ClusterIP
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+###############################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  type: ClusterIP
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+
+
+
+##################################################################################
+
+Kind: Service
+apiVersion: v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  type: ClusterIP
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+####################################################################################
+
+Kind: Service
+apiVersion: v1
+metadata:
+  name: python
+  namespace: python-app
+spec:
+  type: ClusterIP
+  selector:
+    app: python
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+
+
+
+
+
+
