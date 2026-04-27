@@ -57,3 +57,12 @@ print(xx)
 # where you can do REPL -Read Evaluate Print Loop
 # in case your file is not Workin you can do practice on interactive shell.
 
+# day2 practice
+
+#boolean = true or false
+#string= "ayush" "aman" "alphawizz"
+#integar = 1 54 89 -12  -45  47 100
+#floating no = 5.2 8.5 46.66 0.2  7.12  
+
+
+a = 
