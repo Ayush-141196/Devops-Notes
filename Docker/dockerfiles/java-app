@@ -211,4 +211,41 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
+################################################
+
+FROM eclipse-tumerin:21-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+################################################################################
+
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+#########################################################################################
+
+FROM eclipse-tumurin:20-jdk
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
 
