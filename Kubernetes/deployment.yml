@@ -872,4 +872,158 @@ spec:
             cpu: "512m"
 
 
+##############################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels: 
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: node:19-slim
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+
+
+##############################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-db
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-cont
+        image: node:19-slim
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "264Mi"
+            cpu: "128m"
+          limits:
+            memory: "528Mi"
+            cpu: "256m"
+
+########################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-app
+  namespace: django-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      - container: django-cont
+        image: python:3.11-slim
+        command: ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:application"]
+        resources:
+          requests:
+            cpu: "128m"
+            memory: "64Mi"
+          limits:
+            cpu: "256m"
+            memory: "128Mi"
+
+#############################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      container: node-cont
+      image: node:19-slim
+      command: ["npm", "app.js"]
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "64m"
+        limits:
+          memory:  "256Mi"
+          cpu:  "128m"
+
+################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: java-app
+  namespace: jave-ns
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: java
+  template:
+    metadata:
+      labels:
+        app: java
+    spec:
+      containers:
+      - name: java-cont  
+        image: eclipse-temurin:17-jdk
+        command: ["java","-jar", "app.jar"]
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+
+
+
+
 
