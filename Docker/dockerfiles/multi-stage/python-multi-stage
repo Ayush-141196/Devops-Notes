@@ -1,0 +1,62 @@
+FROM python:3.13-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY --from=builder  /root/.local /root/.local
+
+COPY  . . 
+
+CMD ["python", "app.py"]
+
+
+#########################################################################
+
+FROM python:3.11-slim  AS builder
+
+WORKDIR /app
+
+COPY requirments.txt /app
+
+RUN pip install --user --no-cache-dir -r requirements.txt 
+
+FROM pytohn:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+#########################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+
