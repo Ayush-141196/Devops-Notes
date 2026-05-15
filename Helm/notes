@@ -1,0 +1,8 @@
+helm is a package manager of Kubernetes, that is used to download the  manifestation file automatically for any app or for any language
+
+helm repo add
+helm repo list
+helm repo update
+helm search repo
+helm install
+
