@@ -359,6 +359,101 @@ CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
 
 ###################################################################################################################
 
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt .
+
+RUN pip install  --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:aaplication"]
+
+#######################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requiremnts.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRRED=1
+ENV PYTONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+
+#########################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim 
+
+COPY --from=builder /root/.local /root/.local 
+
+ENV_PATH=/bin/.local/root=$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+
+#####################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRERD=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+
+
 
 
 
