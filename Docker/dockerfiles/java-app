@@ -247,5 +247,78 @@ EXPOSE 8000
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
+####################################################################################
+
+FROM eclipse-temurin:20-jdk
+
+WORKDIR /java-app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+################################################################################
+
+FROM eclipse-temurin:20:jdk
+
+WORKDIR /java-app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+##########################################################################
+
+
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /java-app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+##############################################################################
+
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /java-app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+###################################################################################
+
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /java-app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+#####################################################################
+
+
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /java-app
+
+COPY package/*.jar app.jar
+
+EXPOSE 8000
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
