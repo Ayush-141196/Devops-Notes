@@ -294,6 +294,61 @@ EXPOSE 8000
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
 
+############################################################################################################
+
+
+FROM python:3.11-slim
+
+WORKDIR /django-app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERRED=1
+
+COPY . . 
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+
+#################################################################################################
+
+FROM python:3.11-slim
+
+WORKDIR /django-app
+
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+RUN pip install --no-cache-dir -r requirements.txt 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+
+#########################################################################################################
+
+FROM python:3.11-slim
+
+WORKDIR /django-app
+
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+############################################################################################################
+
+
 
 
 

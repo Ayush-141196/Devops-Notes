@@ -363,4 +363,45 @@ EXPOSE 5000
 
 CMD ["node", "app.js"]
  
+#################################################################################################
+
+FROM node:19-slim
+ 
+WORKDIR /node-app
+
+ENV NODE_ENV=production
+
+COPY package/.json ./
+
+RUN npm ci 
+
+RUN --chown=node:node . . 
+
+USER node
+
+EXPOSE 5000
+
+CMD ["node", "app.js"]
+
+#####################################################################################################
+
+FROM node:19-slim
+
+WORKDIR /node-app
+
+ENV NODE_ENV=production
+
+COPY package/.json ./
+
+RUN npm ci --only=production
+
+RUN --chown=node:node . .
+
+USER node
+
+EXPOSE 5000
+
+CMD ["node", "app.js"]
+
+
 
