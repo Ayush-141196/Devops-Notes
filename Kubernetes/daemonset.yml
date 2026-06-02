@@ -91,3 +91,59 @@ spec:
         hostPath:
           path: /sys
 
+
+##################################################################################################################
+
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: node-exporter
+  namespace: monitoring
+spec:
+  labels: node-exporter
+  selectors:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        app: node-exporter
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+      - name: node-export-cont
+        image: prom/node-exporter:v1.8.0
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "128m"
+          limits:
+            memory: "512Mi"
+            cpu: "256m"
+        volumeMounts:
+        securityContext:
+          privilaged: true
+        volumeMounts:
+        - name: proc
+          mountPaths: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+          readonly: true
+      volumes:
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: sys
+        hostPath:
+          path: /sys
+
+
+
+
+
+
+
+        
+  

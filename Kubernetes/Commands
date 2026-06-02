@@ -64,3 +64,10 @@ kubectl delete cluster --name cluster-name
 
 **kubectl proxy**
 
+--for creating the yaml file--
+**kubectl create deployment apache --image=httpd --replicas=3 -n apache -o yaml > apache.yaml**
+
+
+
+
+

@@ -1066,5 +1066,88 @@ spec:
 
 ################################################################################################
 
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-app
+  namespace: django-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: djnago
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+    - containers:
+        name: django-cont
+        images: python:3.11-slim
+        commands: ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:appication"]
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpU: "128m"
+      readinessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3 
 
+######################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django
+    template:
+      metadata:
+        labels:
+          app: django
+      spec:
+      - containers:
+          name: django-app
+          image: python:3.11-slim
+          commands: ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+          ports:
+          - containerPort: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu:   "64m"
+            limits:
+              memory: "256Mi"
+              cpu: "128m"
+        readinessProbe:
+          httpGet:
+            path: /api/health/
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /api/health/
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 5
+
+
+
+                      
 
