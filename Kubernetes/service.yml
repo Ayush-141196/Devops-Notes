@@ -593,8 +593,51 @@ spec:
     port: 8000
     targetPort: 8000
 
+###############################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-service
+  namespace: node-ns
+spec:
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+###########################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django
+  namespace: django-ns
+spec:
+  selector:
+    app: django
+  ports:
+  - protocol: TCP
+    ports: 8000
+    targetPort: 8000
 
 
+###########################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: node-service
+  namespace: node-app-ns
+spec:
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
 
 
 
