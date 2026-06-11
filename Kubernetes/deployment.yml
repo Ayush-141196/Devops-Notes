@@ -1147,6 +1147,154 @@ spec:
           periodSeconds: 5
           failureThreshold: 5
 
+#################################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django
+  namespace: django-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django-cont
+        image: ayushamansingh/python:3.11-slim
+        command: ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "264Mi"
+            cpu: "128m"
+      readinessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 8
+      livenessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5 
+        periodSeconds: 5
+        failureThreshold: 8
+    
+###############################################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node-app
+        image: ayuhsamansingh/node-app
+        command: ["node", "index.js"]
+        ports:
+          - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+      readinessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 8
+      livenessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 8
+
+##########################################################################################################################
+
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node
+  namespace: node-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+        - name: node-cont
+          image: ayushamansingh/node-app
+          command: ["node", "index.js"]
+          ports:
+            - containerport: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu:  "64m"
+            limits:
+              memory: "265Mi"
+              cpu: "128m"
+      readinessProbe:
+        httpGet: 
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 8
+      livenessProbe:
+        httpGet:
+          path: /api/health/
+          port: 8000
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 8
+
+########################################################################################################################
+  
+
+
+
+
+
+
+
+
+
+
 
 
                       
