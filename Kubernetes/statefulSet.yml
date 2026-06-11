@@ -448,3 +448,44 @@ spec:
         requests:
           storage: "1Gi"
 
+
+
+#########################################################################################################################
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql-db
+spec:
+  serviceName: mysql
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456789"
+        - name: MYSQL_USER
+          value: ayush
+        - name: MYSQL_PASSWORD
+          value: 123456
+        - name: MYSQL_DATABASE
+          value: aman
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "256Mi"
+            cpu: "128m"
+
+
