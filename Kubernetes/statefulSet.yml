@@ -489,3 +489,59 @@ spec:
             cpu: "128m"
 
 
+#########################################################################################################
+
+
+kind: StatefulSet
+apiVersion: v1
+metadata:
+  name: mysql-service
+  namespace: mysql-db
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+
+---
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql-db
+spec:
+  serviceName: "mysql-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-cont
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: root-password
+        ports:
+        - containerPorts: 3306
+        volumeMounts:
+        - name: data-disk
+          mountPath: /var/lib/mysql
+  VolumeClaimTemplates:
+  - metadata:
+      name: data-disk
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+
