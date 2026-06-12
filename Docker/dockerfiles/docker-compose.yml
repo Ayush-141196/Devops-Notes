@@ -384,6 +384,101 @@ services:
 volumes:
   mysql_data:
 
+################################################################################################
+
+version: 3.8
+
+service:
+  app:
+    container_name: django-app-cont
+    image: python:3.11-slim
+    build: . 
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql-db
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environments:
+      - MYSQL_USER=ayush
+        MYSQL_PASSWORD=123456789
+        MYSQL_DATABASE=aman
+        MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+
+############################################################################################################
+
+version: 3.8
+
+service:
+  app:
+    container_name: django-app-cont
+    image: python:3.11-slim
+    build: .
+    ports:
+      - "8000:8000" 
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql-cont
+    image: mysql:8.0
+    ports: 
+      - "3306:3306"
+    environments:
+      - MYSQL_USER=ayush
+        MYSQL_DATABASE=aman
+        MYSQL_PASSWORD=123456
+        MYSQL_ROOT_PASSWORD=123456798
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+#################################################################################################################
+
+version: 3.8
+
+service:
+  app:
+    container_name: django-app
+    image: python:3.11-slim
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql_db
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environments:
+      - MYSQL_USER=ayush
+        MYSQL_DATABASE=aman
+        MYSQL_PASSOWRD=123456
+        MYSQL_ROOT_PASSWORD=123456789
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+################################################################################################################
+
+
+
 
 
 
