@@ -140,8 +140,63 @@ spec:
           path: /sys
 
 
+##########################################################################################################
 
 
+kind: DaemonSet
+apiVersin: apps/v1
+metadata: 
+  name: node-logs
+  namespace: kube-system
+spec:
+  selector: 
+    matchLabels:
+      app: log-agent
+  template:
+    metadata:
+      labels: 
+        app: log-agent
+    spec:
+      containers:
+      - name: log-collector
+        image: alpine:latest
+        command: ["sh", "-c", "while true: do echo 'logging background node metrics...'"]
+        resources: 
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+          limits:
+            cpu: "20m"
+            memory: "64Mi"
+
+ 
+####################################################################################################
+
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: node-log
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: log-agent
+  template:
+    metadata:
+      labels:
+        app: log-agent
+    spec:
+      containers:
+      - name: log-collector
+        image: alpine:latest
+        command: ["sh", "-c", "while true: do echo 'logging background node metrics....';sleep 10; done"]
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "32m"
+          limits:
+            memory: "128Mi"
+            cpu: "64m"
 
 
 
