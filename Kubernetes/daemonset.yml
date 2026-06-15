@@ -201,4 +201,23 @@ spec:
 
 
         
-  
+###############################################################################################################################
+
+kind: DaemonSet
+apiVersion: apps/v1
+metadata: 
+  name: node-log
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels: 
+    app: log-agent
+  template: 
+    metadata:
+      labels:
+        app: log-agent
+    spec:
+      containers:
+      - name: log-collector
+        image: alpine:latest
+        commands: ["sh", "-c]

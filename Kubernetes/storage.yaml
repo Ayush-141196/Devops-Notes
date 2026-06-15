@@ -1,0 +1,31 @@
+kind: PersistantVolume
+apiVersion: v1
+metadata:
+  name: mysql-static-pv
+  labels:
+    app: mysql
+spec:
+  StorageClassName: manual
+    capacity:
+      storage: 2Gi
+    accessModes:
+      - ReadWriteOnce
+    hostPath:
+      path: "/mnt/mysql-data"
+
+----
+
+kind: PersistantVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql-db
+  namespace: mysql-db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+###################################################################################################################
