@@ -1,0 +1,69 @@
+FROM node:19-slim AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+FROM node:19-alpine AS runner
+
+ENV NODE_ENV=production
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app ./
+
+RUN --chown=node:node . . 
+USER node
+
+EXPOSE 5000
+
+CMD ["node", "app.js"]
+
+
+
+########################################################################################
+
+FROM node:19-slim AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+FROM node:19-alpine AS runner
+
+ENV NODE_ENV=production
+
+COPY --from=builder --chown=node:node /app ./
+
+USER node
+
+EXPOSE 5000
+
+CMD ["node", "app.js"]
+
+###############################################################################################
+
+FROM node:19-slim AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY . . 
+
+FROM node:19-alpine AS runner
+
+COPY --from=builder --chown=node:node /app ./
+
+USER node
+
+EXPOSE  5000
+
+CMD ["node", "app.js"]
+
+
