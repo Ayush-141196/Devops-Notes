@@ -68,6 +68,7 @@ kubectl delete cluster --name cluster-name
 **kubectl create deployment apache --image=httpd --replicas=3 -n apache -o yaml > apache.yaml**
 
 
-
+--for forcing delete ns , if stucked--
+kubectl get namespace nginx -o json | jq '.spec.finalizers = []' | kubectl replace --raw "/api/v1/namespaces/nginx/finalize" -f 
 
 
