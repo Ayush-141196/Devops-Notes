@@ -640,6 +640,56 @@ spec:
     targetPort: 8000
 
 
+############################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django-app-service
+  namespace: django-app
+spec:
+  type: ClusterIP
+  selector:
+    app: django-app
+  ports:
+    protocol: TCP
+    port: 8000
+    targePort: 8000
+
+#############################################################################################
+
+Kind: Service
+apiVersion: v1
+metadata:
+  name: django-app-service
+  namespace: django-app
+spec:
+  type: ClusterIP
+  selector: 
+    app: django-app
+  ports:
+    protocol: TCP
+    ports: 8000
+    targetPort: 8000
+
+##############################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: django-app-service
+  namespace: django-app
+spec: 
+  type: ClusterIP
+  selector:
+    app: django-app
+  ports: 
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
+#####################################################################################
+
 
 
 

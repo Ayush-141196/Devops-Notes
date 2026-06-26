@@ -545,3 +545,52 @@ spec:
         requests:
           storage: 1Gi
 
+
+########################################################################################################
+
+
+kind: StatefulSet
+apiVersion: v1
+namespace:
+  name: mysql-service
+  namespace: mysql-db
+spec:
+  ClusterIP: none
+  selector:
+    app: mysql-service
+  ports:
+  - port: 3306
+
+---
+
+kind: StatefulSet
+apiVersion: apps/v1
+namespace: 
+  name: mysql-service
+  namespace: mysql-db
+spec: 
+  servicename: "mysql-service"
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: mysql
+  template: 
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql-statefulset
+          image: mysql:8.0
+          env:
+            name: MYSQL_ROOT_PASSWORD
+            valuetakenfrom:  
+
+
+
+
+
+
+
+
+
