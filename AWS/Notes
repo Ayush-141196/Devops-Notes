@@ -1,0 +1,53 @@
+Aws s3
+
+To sync the s3 bucket then , put the old things to new bucket , then you have to give the old bucket permissions.
+
+You can change the policy for sync old account bucket to new one
+
+
+Aws s3 sync s3://old bucket  s3://newbucket name
+
+
+
+**if you want to download the dynamodb table and want to upload it on another account, from one account to another, then you have to use the IAM role and download it on you local and then configure the other IAM role in which you want to upload it, and use this both script by changing the local folder name.**
+
+
+To download tables of dynamo db to local system
+
+# Navigate to your folder
+mkdir -p /home/alphawizz/wellness-db-30-06
+cd /home/alphawizz/wellness-db-30-06
+
+# Start downloading all 37 tables
+for table in $(aws dynamodb list-tables --region ap-south-1 --query "TableNames[]" --output text); do
+    echo "----------------------------------------"
+    echo "Backing up table: $table"
+    echo "----------------------------------------"
+    
+    dynamodump -m backup -r ap-south-1 -s "$table" --dataOnly --dumpPath .
+done
+
+echo "🎉 Done! All 37 tables are cleanly backed up inside /home/alphawizz/wellness-db-30-06"
+
+
+
+
+To upload tables of dynamo db from local system
+
+cd /home/alphawizz/wellness
+
+for dir in ./*; do
+    if [ -d "$dir" ]; then
+        table=$(basename "$dir")
+        echo "----------------------------------------"
+        echo "Creating and restoring table: $table"
+        echo "----------------------------------------"
+        
+        # Adding --noConfirm forces the script to automatically accept and skip the prompt
+        dynamodump -m restore -r ap-south-1 -s "$table" -d "$table" --dumpPath . --noConfirm
+    fi
+done
+
+echo "🎉 Success! All 41 tables have been successfully processed and uploaded to Madhur's account!"
+
+

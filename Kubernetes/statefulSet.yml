@@ -583,12 +583,65 @@ spec:
         - name: mysql-statefulset
           image: mysql:8.0
           env:
-            name: MYSQL_ROOT_PASSWORD
-            valuetakenfrom:  
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: root-password
+          ports:
+          - containerPorts: 3306
+          volumeMounts:
+          - name: data-disk
+            mountPath: /var/lib/mysql
+  volumeClaimTemplate:
+  - metadata:
+      name: data-disk
+    spec:   
+      accessMode: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 
 
 
+########################################################################################################
 
+Kind: Service
+apiVersion: v1
+metadata:
+  name: statefulset
+  namespace: mysql
+spec:
+  clusterIP: none
+  selector:
+    app: mysql-service
+  ports:
+  - port: 3306
+
+
+---
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  serviceName: "mysql-service"
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-cont
+        image: mysql:8.0
+        env:
+
+          
 
 
 

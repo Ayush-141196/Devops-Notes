@@ -1,0 +1,8 @@
+Docker Work on client-server/Docker.Daemon architecture 
+
+Client is like, you run commands on that and then he takes that command over RESTapi to Docker-daemon 
+and do the things, like making containers, making images and all.
+and then return the response on JSON format at all.
+
+ 
+
