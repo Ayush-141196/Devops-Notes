@@ -1,0 +1,751 @@
+FROM python:3.13-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY --from=builder  /root/.local /root/.local
+
+COPY  . . 
+
+CMD ["python", "app.py"]
+
+
+#########################################################################
+
+FROM python:3.11-slim  AS builder
+
+WORKDIR /app
+
+COPY requirments.txt /app
+
+RUN pip install --user --no-cache-dir -r requirements.txt 
+
+FROM pytohn:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+#########################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+#########################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+ 
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+######################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --FROM=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+#############################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+FROM --FROM=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+EXPOSE 8000
+
+CMD ["python", "app.js"]
+
+##########################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local 
+
+RUN PATH=/root/.local/bin:$PATH
+
+EXPOSE 8000
+
+CMD ["python", "app.js"]
+
+#########################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+#####################################################################################
+
+FROM python:3.11-slim AS builder
+
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /django-app
+
+COPY requirements.txt  .
+
+RUN pip install --user --no-cache-dir -r -requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local 
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
+
+###################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local 
+
+ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:myapplication"]
+
+
+##############################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:application"]
+
+################################################################################################
+
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myprojects.wsgi:myapplication"]
+
+####################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt 
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:myapplication"]
+
+############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+##################################################################################################################################
+
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --no-cache-dir -r requirements.txt 
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFRED=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+#################################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+
+###################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt .
+
+RUN pip install  --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:aaplication"]
+
+#######################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requiremnts.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRRED=1
+ENV PYTONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:application"]
+
+#########################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim 
+
+COPY --from=builder /root/.local /root/.local 
+
+ENV_PATH=/bin/.local/root=$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+
+#####################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRERD=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+###########################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+#############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r  requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "projects.wsgi:myaplication"]
+
+
+
+###############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /python-app
+
+COPY requirements.txt . 
+
+RUN pip install --user --no-cache-dir -r  requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+##########################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+ 
+
+#########################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERRED=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+###################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r  requirements.txt
+
+FROM python:3.11-slim AS runner
+
+COPY --from=builder /root/.local /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERRED=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+#################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /django-app
+
+COPY requirements.txt . 
+
+RUN pip install --no-cache-dir -r requirements.txt 
+
+FROM python:3.11-slim AS runner
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "Project.wsgi:application"]
+
+####################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+
+COPY --from=builder /root/.local
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY  . .
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+
+#############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim AS runner
+
+COPY --from=builder /root/.local /root/.local/bin
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBBUFFRRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+###############################################################################################################
+
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim AS runner
+
+COPY --from=builder /root/.local /root/.local/bin
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+##############################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim AS runner
+
+COPY --from=builder /root/.local /root/.local/bin
+
+ENV_PATH=/root/.local/bin=$PATH
+ENV PYTHONUNBUFFERRED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+
+
+
+
+
+
+
