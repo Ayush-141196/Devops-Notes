@@ -1,0 +1,3 @@
+
+**To Reset the Password**
+grafana cli admin reset-admin-password admin123

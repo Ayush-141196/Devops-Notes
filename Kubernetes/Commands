@@ -69,7 +69,7 @@ kubectl delete cluster --name cluster-name
 
 
 --for forcing delete ns , if stucked--
-kubectl get namespace nginx -o json | jq '.spec.finalizers = []' | kubectl replace --raw "/api/v1/namespaces/nginx/finalize" -f 
+kubectl get namespace nginx -o json | jq '.spec.finalizers = []' | kubectl replace --raw "/api/v1/namespaces/nginx/finalize" -f -
 
 --for scaling the deployment--
 k scale deployment.apps/easyshop --replicas=5 -n easyshop
