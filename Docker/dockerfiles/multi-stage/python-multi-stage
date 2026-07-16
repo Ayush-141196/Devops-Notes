@@ -733,7 +733,7 @@ FROM python:3.11-slim AS runner
 
 COPY --from=builder /root/.local /root/.local/bin
 
-ENV_PATH=/root/.local/bin=$PATH
+ENV PATH=/root/.local/bin=$PATH
 ENV PYTHONUNBUFFERRED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -743,8 +743,78 @@ EXPOSE 8000
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
 
+################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt . 
+
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+FROM python:3.11-alpine AS runner
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi.myproject:application"]
+
+################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN pip install --user --no-cache-dir -r requirements.txt 
+
+FROM python:3.11-alpine AS runner
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi.project:myapplication"]
 
 
+#######################################################################################################################
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+FROM python:3.11-alpine AS runnner
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi.project:myapplication"]
 
 
 
