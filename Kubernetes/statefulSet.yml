@@ -640,8 +640,79 @@ spec:
       - name: mysql-cont
         image: mysql:8.0
         env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: root-password
+        ports:
+        - containerPorts: 8000
+        volumeMount:
+        - name: data-disk
+          mountPath: /var/lib/mysql
+  volumeMountPath:
+  - metadata:
+      name: data-disk
+    spec: 
+      accessMode: ["ReadWriteOnly"]
+        resources:        
+          requests:
+            storage: 1Gi
 
-          
+###################################################################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: statefulSet
+  namespace: mysql
+spec:
+  clusterIP: none
+  selector:
+    app: statefulSet
+  ports:
+  - port: 3306
+
+
+---
+
+kind: statefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  serviceName: "mysql-service"
+  selector: 
+    matchLabels: 
+      app: mysql
+  template: 
+    metadata:
+      labels: mysql
+    spec:
+      containers:
+      - name: mysql-cont
+        image: mysql:8.0
+        env:
+        - name: MYSQL-RROT-PASSWORD
+          valueFrom:
+            secretKeyRef: 
+              name: db-secrets
+              key: root-password
+        ports:
+        - containerPorts: 8000
+        volumeMounts:
+        - name: data-disk
+          mountPath: /var/lib/mysql
+  volumeMountPath:
+  - metadata:
+      name:  data-disk
+    spec:
+      accessMode: ["ReadWriteOnly"]
+        resources:
+          requests:
+            storage: 1Gi
+
 
 
 
