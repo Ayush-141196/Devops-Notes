@@ -18,3 +18,18 @@ metadata:
 #metadata:
  # name: testing
 
+################################################################
+
+kind: Namespace
+apiVersion: v1
+metedata:
+  namespace: development
+
+################################################################
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: development
+
+################################################################### 

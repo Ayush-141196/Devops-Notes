@@ -93,3 +93,34 @@ spec:
     - containerPort: 80
 
 
+####################################################################################
+
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node-app
+  namespace: nodes-app
+spec:
+  containers:
+  - name: node-cont
+    image: node:19-slim
+    ports:
+    - containerPort: 80
+
+#################################################################################
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node-pod
+  namespace: node-app
+spec: 
+  conatiners:
+  - name: node-cont
+    image: node:19-slim
+    ports:
+    - conatinerPort: 80
+
+
+

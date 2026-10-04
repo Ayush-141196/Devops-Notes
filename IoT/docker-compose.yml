@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  # 1. MQTT Broker (Mosquitto)
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"   # Standard MQTT Port
+      - "9001:9001"   # WebSockets Port
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  # 2. Time-Series Database (InfluxDB)
+  influxdb:
+    image: influxdb:2.7
+    container_name: time_series_db
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword123
+      - DOCKER_INFLUXDB_INIT_ORG=myorg
+      - DOCKER_INFLUXDB_INIT_BUCKET=iot_data
+
+  # 3. Visualization Dashboard (Grafana)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring_dashboard
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb

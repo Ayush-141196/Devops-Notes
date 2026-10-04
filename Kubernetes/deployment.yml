@@ -1403,5 +1403,39 @@ spec:
             cpu: 
 
 
+##########################################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node-deployment
+  namespace: node-app
+spec:
+  replicas: 4
+  selector: 
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-app
+        image: node:19-slim
+        command: ["node", "app.js"]
+        ports:
+        - containerPorts: 5000
+        resources:
+          requests: 
+            memory: "256Mi"
+            cpu: "128m"
+          limits: 
+            memory: "512Mi"
+            cpu: "256m"
+        readinessProbe:
+          httpGet:
+            path:
+            port:
 
 
