@@ -840,6 +840,29 @@ EXPOSE 8000
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi.projects:myapplication"]
 
+#######################################################################################################
+
+FROM python:3.11-alpine AS builder
+
+WORKDIR /Python-app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache -r requirements.txt 
+
+FROM python:3.11-alpine AS runner
+
+COPY --from=builder /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH 
+ENV PYTHONUNBUFFERRED=1
+ENV PYHONDONTWRITEBYTECODE=1
+
+COPY . . 
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi.projects:myapplication"]
 
 
 
